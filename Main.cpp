@@ -1,96 +1,69 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
+#include <bitset>
 
 using namespace std;
 
-//Key for AES encryption (128 bits)
-const string
-AES_KEY = "secretkey12345";
-
-//Function to encrypt data using AES
-void encryptAES(const string& input, const string& output, const string& key){
-   ifstream inputFile(input, ios::binary);
-   ofstream outputFile(output, ios::binary);
-
-   //Prepare the key
-   string paddedKey = key;
-   while(paddedKey.size() < 16){
-      paddedKey += ' '; //Pad key with spaces if needed
-   }
-
-   //Use the key to perform encryption
-   /*for(char keyChar : paddedKey){
-      outputFile.put(keyChar);
-   }*/
-
-   //Encrypt the data
-   char ch;
-   while (inputFile.get(ch)){
-      cout<<ch;
-      cout<<paddedKey[0];
-      outputFile.put(ch ^ paddedKey[0]); //Simple XOR encryption
-   }
-
-   inputFile.close();
-   outputFile.close();
+//Function to convert ASCII plaintext to binary text
+string asciiToBinary(const string& input){
+    string binary;
+    for (char ch : input){
+        binary += bitset<8>(ch).to_string();
+    }
+    return binary;
 }
 
-//Function to decrypt the data using AES
-void decryptAES(const string& input, const string& output, const string& key){
-   ifstream inputFile(input, ios::binary);
-   ofstream outputFile(output, ios::binary);
-
-   //Read the key from the encrypted file
-   string encryptedKey;
-   /*for(int i = 0; i < 16; ++i){
-      char ch;
-      inputFile.get(ch);
-      encryptedKey += ch;
-   }*/
-   
-   //Use the key to perform decryption
-   string paddedKey = key;
-   while (paddedKey.size() < 16) {
-      paddedKey += ' '; //Pad key with space if needed
-   }
-   //Decrypt the data
-   char ch;
-   while(inputFile.get(ch)){
-      outputFile.put(ch ^ paddedKey[0]);
-   }
-
-   inputFile.close();
-   outputFile.close();
+//Function to convert binary ciphertext to ASCII ciphertext
+string binaryToAscii(const string& binary){
+    string ascii;
+    for (size_t i = 0; i < binary.length(); i += 8){
+        string byte = binary.substr(i, 8);
+        char ch = static_cast<char>(bitset<8>(byte).to_ulong());
+        ascii += ch;
+    }
+    return ascii;
 }
 
+//Function to perform bitwise XOR between plaintext and binary key
+string bitwiseXOR(const string& binaryPlaintext, const string& binaryKey){
+    string result;
+    for (size_t i = 0; i < binaryPlaintext.length(); ++i){
+        char ch1 = binaryPlaintext[i];
+        char ch2 = binaryKey[i % binaryKey.length()];
+        result += (ch1 == ch2) ? '0' : '1';
+    }
+    return result;
+}
+int main() {
+    string plaintext, binaryPlaintext, key, binaryKey, binaryCiphertext, ciphertext;
 
-//comand line: Main.C <Key> <D/E> <File_name>
-//c++ -o Main Main.cpp 
-int main(int argc, char* argv[]) {
-   string key = argv[1];
-   string inputFileName = argv[3];
-   string encryptedFileName; 
-   string decryptedFileName;
+    cout << "Enter plaintext: ";
+    getline(cin, plaintext);
 
-   if (*argv[2] == 'E') {
-      //cout << "Enter input file name: ";
-      //getline(cin, inputFileName);
-      cout << "Enter output file name for encryption: ";
-      getline(cin, encryptedFileName);
+    cout << "Enter key: ";
+    getline(cin, key);
 
-      encryptAES(inputFileName, encryptedFileName, key);
-      cout << "File encrypted successfully!" << endl;
+    //Convert ASCII plaintext to binary
+    binaryPlaintext = asciiToBinary(plaintext);
 
-   }else{
-      //cout << "Enter input file name for decryption: ";
-      //getline(cin, inputFileName);
-      cout << "Enter output file name for decryption: ";
-      getline(cin, decryptedFileName);
+    //Convert ASCII key to binary
+    binaryKey = asciiToBinary(key);
 
-      decryptAES(inputFileName, decryptedFileName, key);
-      cout << "File decrypted successfully!" << endl;
-   }
-   return 0;
-} 
+    //Perform XOR between binary plaintext and binary key
+    binaryCiphertext = bitwiseXOR(binaryPlaintext, binaryKey);
+
+    //Convert binary ciphertext to ASCII
+    ciphertext = binaryToAscii(binaryCiphertext);
+
+    cout << "Ciphertext (binary): " << binaryCiphertext << endl;
+    cout << "Ciphertext (ASCII): " << ciphertext << endl;
+
+    //Decryption
+    string decryptedBinary = bitwiseXOR(binaryCiphertext, binaryKey);
+    string decryptedPlaintext = binaryToAscii(decryptedBinary);
+
+    cout << "Decrypted Plaintext (binary): " << decryptedBinary << endl;
+    cout << "Decrypted Plaintext (ASCII): " << decryptedPlaintext << endl;
+
+    return 0;
