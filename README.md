@@ -23,10 +23,10 @@ Features
 
 -Encrypts text files using a Caesar cipher with a provided key
 
-Decrypts text files using the same key
+-Decrypts text files using the same key
 
-Supports input from the user via CLI
+-Supports input from the user via CLI
 
-Handles both lowercase and uppercase letters
+-Handles both lowercase and uppercase letters
 
-Allows the user to specify the input file, output file for encryption, output file for decryption, and the encryption/decryption key via command line arguments
+-Allows the user to specify the input file, output file for encryption, output file for decryption, and the encryption/decryption key via command line arguments
