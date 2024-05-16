@@ -39,7 +39,7 @@ This repository contains a C++ program that demonstrates Caesar cipher encryptio
 
 # How to run program
 
-This program encrypts a txt file using Monoalphabetic substitution method. The program can be ran using the command line: ./Main2.C <Key> <D/E> <File_name>. 
+This program encrypts a txt file using Monoalphabetic substitution method. The program can be ran using the command line: ./Main2.C Key <D/E> <File_name>. 
 
 -Key: should be an int that represents the shift in the alphabet 
 
