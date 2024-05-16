@@ -2,7 +2,7 @@
 # XOR Encryption and Decryption
 This repository contains a C++ program that demonstrates AES encryption and decryption using a Command Line Interface (CLI) with a simple menu.
 
-Features
+# Features
 
 -Encrypts plaintext using AES algorithm and a provided key
 
