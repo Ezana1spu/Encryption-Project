@@ -5,7 +5,14 @@
 
 using namespace std;
 
-//Function to convert ASCII plaintext to binary text
+// Function to convert ASCII plaintext to binary text
+// Takes a string input as argument
+// Creates an empty string binary
+// Iterates over each character ch in input:
+// Creates a bitset of size 8 with ch
+// Converts bitset to string and appends to binary
+// Returns the binary string containing binary representation
+
 string asciiToBinary(const string& input){
     string binary;
     for (char ch : input){
@@ -15,6 +22,10 @@ string asciiToBinary(const string& input){
 }
 
 //Function to convert binary ciphertext to ASCII ciphertext
+// Takes a binary string binary as input
+// Iterates over the binary string in chunks of 8 bits (1 byte)
+// Converts each 8-bit chunk to its corresponding ASCII character
+// Appends the ASCII character to the ascii string and returns it
 string binaryToAscii(const string& binary){
     string ascii;
     for (size_t i = 0; i < binary.length(); i += 8){
@@ -26,6 +37,10 @@ string binaryToAscii(const string& binary){
 }
 
 //Function to perform bitwise XOR between plaintext and binary key
+// Takes two binary strings: binaryPlaintext and binaryKey
+// Performs bitwise XOR operation between corresponding bits
+// Key is repeated cyclically if shorter than plaintext
+// Returns the resulting binary string after XORing all bits
 string bitwiseXOR(const string& binaryPlaintext, const string& binaryKey){
     string result;
     for (size_t i = 0; i < binaryPlaintext.length(); ++i){

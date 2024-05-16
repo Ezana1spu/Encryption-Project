@@ -59,6 +59,10 @@ void encrypt(const string& input, const string& output, const int& key){
 }
 
 //Function to decrypt the data using AES
+// Opens input and output files in binary mode
+// Iterates over each character in the input file
+// For alphabetic characters, shifts them back by the given key value
+// Writes the decrypted characters to the output file
 void decrypt(const string& input, const string& output, const int& key){
    ifstream inputFile(input, ios::binary);
    ofstream outputFile(output, ios::binary);
