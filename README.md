@@ -18,9 +18,9 @@ This repository contains a C++ program that demonstrates AES encryption and decr
 
 # How to run program
 
-First run and compile the code and enter the plaintext and key as prompted
+Run and compile the code and when the prompt shows on the terminal enter the plaintext and the key
 
-Then get the return of the ciphertext binary and ascii and the decrypted plaintext in binary and ascii
+Once you enter the plaintext and the key you will get a retrun of the ciphertext in binary and ascii and the decrypted plaintext in binary and ascii
 
 # Caesar Cipher Encryption and Decryption
 This repository contains a C++ program that demonstrates Caesar cipher encryption and decryption using a Command Line Interface (CLI).
@@ -43,7 +43,7 @@ This program encrypts a txt file using Monoalphabetic substitution method. The p
 
 -Key: should be an int that represents the shift in the alphabet 
 
--D/E: D is for decryption and E iis for encryption. 
+-D/E: D is for decryption and E is for encryption. 
 
 -File_name: text file that is being encrypted or decrypted
 
